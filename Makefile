@@ -31,4 +31,10 @@ re: fclean all
 archive: $(HEADERS) $(SOURCES) arch_makefile
 	tar -czf $(PROG).tgz $^
 
+pull:
+	git pull origin master
+
+push:
+	git push origin master
+
 .PHONY: all re clean fclean archive
