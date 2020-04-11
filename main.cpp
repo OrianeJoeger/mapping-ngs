@@ -18,7 +18,7 @@ void help() {
 FastX *detect(istream &is) {
     char c;
 
-    while (!is.eof() && (c = is.peek()) > ' ') {
+    while (!is.eof() && (c = is.get()) > ' ') {
         if (c == ';' || c == '>') {
             return new FastA;
         } else if (c == '@') {
