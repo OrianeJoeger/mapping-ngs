@@ -5,9 +5,9 @@
 #include <string>
 
 
-class Fasta : public FastX {
+class FastA : public FastX {
 public:
-    Fasta(const std::string &entete = "", const std::string &seqbio = "");
+    FastA(const std::string &entete = "", const std::string &seqbio = "");
 
     virtual void fromStream(std::istream &is);
 };

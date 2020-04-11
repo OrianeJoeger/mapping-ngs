@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 
-#include "../include/Fasta.h"
+#include "../include/FastA.h"
 
 using namespace std;
 
