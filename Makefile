@@ -7,9 +7,9 @@ INC = include/
 
 CFLAGS	= -Wall -ansi -pedantic
 
-SRCS	= $(shell find src -type f -name "*.cpp")
+SRCS	= $(shell find ./src -type f -name "*.cpp")
 
-HEADERS	= $(shell find include -type f -name "*.h")
+HEADERS	= $(shell find ./include -type f -name "*.h")
 
 OBJS	= $(SRCS:.cpp=.o)
 
