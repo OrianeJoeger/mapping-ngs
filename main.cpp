@@ -72,6 +72,8 @@ int main(int argc, char **argv) {
 
     FastX *fast = parse(fb);
 
+    cout << "-- Format [" << fast->getType() << "]" << endl;
+
     cout << "--- Header" << endl;
     cout << fast->getHeader() << endl << endl;
     cout << "--- Seqbio" << endl;

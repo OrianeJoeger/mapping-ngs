@@ -10,6 +10,10 @@ FastA::FastA(const string &entete, const string &seqbio) :
 
 }
 
+string FastA::getType() {
+    return "FASTA";
+}
+
 void FastA::fromStream(istream &is) {
     char c, old_c = '\n';
     bool ok = is.good();

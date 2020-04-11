@@ -10,6 +10,8 @@ private:
 public:
     FastQ(const std::string &entete = "", const std::string &seqbio = "", const std::string &qualite = "");
 
+    virtual std::string getType();
+
     virtual void fromStream(std::istream &is);
 
     virtual void toStream(std::ostream &os);

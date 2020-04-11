@@ -9,6 +9,8 @@ class FastA : public FastX {
 public:
     FastA(const std::string &entete = "", const std::string &seqbio = "");
 
+    virtual std::string getType();
+
     virtual void fromStream(std::istream &is);
 };
 

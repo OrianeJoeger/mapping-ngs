@@ -11,6 +11,10 @@ FastQ::FastQ(const string &entete, const string &seqbio, const string &qualite) 
 
 }
 
+string FastQ::getType() {
+    return "FASTQ";
+}
+
 void FastQ::fromStream(istream &is) {
     char c, old_c = '\n';
     bool ok = is.good();

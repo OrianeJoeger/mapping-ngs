@@ -15,7 +15,10 @@ public:
     FastX(const std::string &entete = "", const std::string &seqbio = "");
 
     //Ajouter méthodes ici
+    virtual std::string getType() = 0;
+
     virtual void fromStream(std::istream &is) = 0; //virtuel pur
+
     virtual void toStream(std::ostream &os);
 
     //virtual void lireFichier(std::ifstream &ifs) = 0; // = 0 interdit la construction de FastX
