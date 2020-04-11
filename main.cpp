@@ -46,21 +46,25 @@ int main(int argc, char **argv) {
     istream is(&fb);
 
     FastReader reader(&is);
-
-    cout << "-- Format [" << reader.getFormat() << "]" << endl;
+    string format = reader.getFormat();
+    cout << "-- Format [" << format << "]" << endl;
 
     FastX *fast;
 
     try {
         while ((fast = reader.next()) != NULL) {
             cout << "--- Header" << endl;
-            cout << fast->getHeader() << endl << endl;
+            cout << fast->getHeader() << endl;
             cout << "--- Seqbio" << endl;
-            //cout << fast->getSeqbio() << endl << endl;
+            cout << fast->getSeqbio() << endl;
             cout << "--- SeqComp" << endl;
-            //cout << fast->getSeqComp() << endl << endl;
+            cout << fast->getSeqComp() << endl;
             cout << "--- Seqrev" << endl;
-            //cout << fast->getSeqRev() << endl << endl;
+            cout << fast->getSeqRev() << endl;
+            if (format == "FASTQ") {
+                cout << "--- Qual" << endl;
+                cout << ((FastQ*)fast)->getQualite() << endl << endl;
+            }
         }
 
         fb.close();
