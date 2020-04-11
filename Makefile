@@ -27,6 +27,7 @@ fclean: clean
 	$(RM) $(NAME)
 
 re: fclean all
+	$(RM) $(OBJS)
 
 archive: $(HEADERS) $(SOURCES) arch_makefile
 	tar -czf $(PROG).tgz $^

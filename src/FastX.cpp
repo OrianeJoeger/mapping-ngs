@@ -12,21 +12,6 @@ FastX::FastX(const string &entete, const string &seqbio) :
 
 }
 
-void FastX::toStream(ostream &os) {  // os parametre pour afficher (tostring)
-    os << "entete = '" << this->entete << "'" << endl // attribut entete et seqbio
-       << "sequence = '" << this->seqbio << "'" << endl;
-}
-
-istream &operator>>(istream &is, FastX &f) {
-    f.fromStream(is);
-    return is;
-}
-
-ostream &operator<<(ostream &os, FastX &f) {
-    f.toStream(os);
-    return os;
-}
-
 string FastX::getSeqbio() {
     return seqbio;
 }
@@ -41,17 +26,6 @@ void FastX::setHeader(string header) {
 
 size_t FastX::getSeqbioLength() {
     return seqbio.length();
-}
-
-bool FastX::isNucl(char c) {
-    return (c == 'A' || c == 'C' || c == 'G' || c == 'T' || c == 'U' || c == 'R' || c == 'Y' || c == 'S' || c == 'W' ||
-            c == 'K' || c == 'M' || c == 'B' || c == 'D' || c == 'H' || c == 'V' || c == 'N' || c == '.' || c == '-');
-}
-
-bool FastX::isAA(char c) {
-    return (c == 'A' || c == 'C' || c == 'D' || c == 'E' || c == 'F' || c == 'G' || c == 'H' || c == 'I' || c == 'J' ||
-            c == 'K' || c == 'L' || c == 'M' || c == 'N' || c == 'P' || c == 'Q' || c == 'R' || c == 'S' || c == 'T' ||
-            c == 'V' || c == 'W' || c == 'Y');
 }
 
 string FastX::getSeqComp() {

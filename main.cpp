@@ -4,6 +4,7 @@
 
 using namespace std;
 
+#include "include/FastReader.h"
 #include "include/FastA.h"
 #include "include/FastQ.h"
 #include "include/FastX.h"
@@ -13,34 +14,6 @@ void help() {
     cout << "usage prog_exec <file_name>" << endl;
     cout << "    options:" << endl;
     cout << "    --help : display this message" << endl;
-}
-
-FastX *detect(istream &is) {
-    char c;
-
-    while (!is.eof() && (c = is.get()) > ' ') {
-        if (c == ';' || c == '>') {
-            return new FastA;
-        } else if (c == '@') {
-            return new FastQ;
-        } else {
-            break;
-        }
-    }
-
-    throw "Error unknown format type";
-}
-
-FastX *parse(filebuf &file) {
-    istream is(&file);
-
-    FastX *fast(NULL);
-
-    fast = detect(is);
-
-    fast->fromStream(is);
-
-    return fast;
 }
 
 int main(int argc, char **argv) {
@@ -70,20 +43,33 @@ int main(int argc, char **argv) {
         return 1;
     }
 
-    FastX *fast = parse(fb);
+    istream is(&fb);
 
-    cout << "-- Format [" << fast->getType() << "]" << endl;
+    FastReader reader(&is);
 
-    cout << "--- Header" << endl;
-    cout << fast->getHeader() << endl << endl;
-    cout << "--- Seqbio" << endl;
-    cout << fast->getSeqbio() << endl << endl;
-    cout << "--- SeqComp" << endl;
-    cout << fast->getSeqComp() << endl << endl;
-    cout << "--- Seqrev" << endl;
-    cout << fast->getSeqRev() << endl << endl;
+    cout << "-- Format [" << reader.getFormat() << "]" << endl;
 
-    fb.close();
+    FastX *fast;
 
-    return 0;
+    try {
+        while ((fast = reader.next()) != NULL) {
+            cout << "--- Header" << endl;
+            cout << fast->getHeader() << endl << endl;
+            cout << "--- Seqbio" << endl;
+            //cout << fast->getSeqbio() << endl << endl;
+            cout << "--- SeqComp" << endl;
+            //cout << fast->getSeqComp() << endl << endl;
+            cout << "--- Seqrev" << endl;
+            //cout << fast->getSeqRev() << endl << endl;
+        }
+
+        fb.close();
+
+        return 0;
+    } catch (const char *e) {
+        fb.close();
+
+        cerr << e << endl;
+        return 1;
+    }
 }
