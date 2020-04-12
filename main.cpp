@@ -4,9 +4,7 @@
 
 using namespace std;
 
-#include "include/FastReader.h"
-#include "include/FastA.h"
-#include "include/FastQ.h"
+#include "include/FastFile.h"
 #include "include/FastX.h"
 
 void help() {
@@ -37,39 +35,9 @@ int main(int argc, char **argv) {
         i++;
     }
 
-    filebuf fb;
-    if (!fb.open(file, ios::in)) {
-        cerr << "Invalid file : " << file << endl;
-        return 1;
-    }
+    FastFile fast_file(file);
+    cout << "-- Format [" << fast_file.getFormat() << "]" << endl;
 
-    istream is(&fb);
+    cout << "-- Size [" << fast_file.getData().size() << "]" << endl;
 
-    FastReader reader(&is);
-
-    cout << "-- Format [" << reader.getFormat() << "]" << endl;
-
-    FastX *fast;
-
-    try {
-        while ((fast = reader.next()) != NULL) {
-            cout << "--- Header" << endl;
-            cout << fast->getHeader() << endl << endl;
-            cout << "--- Seqbio" << endl;
-            //cout << fast->getSeqbio() << endl << endl;
-            cout << "--- SeqComp" << endl;
-            //cout << fast->getSeqComp() << endl << endl;
-            cout << "--- Seqrev" << endl;
-            //cout << fast->getSeqRev() << endl << endl;
-        }
-
-        fb.close();
-
-        return 0;
-    } catch (const char *e) {
-        fb.close();
-
-        cerr << e << endl;
-        return 1;
-    }
 }
