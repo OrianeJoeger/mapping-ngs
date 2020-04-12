@@ -16,7 +16,7 @@ protected:
     std::vector <std::string> errors;
 public:
     FastX(
-            const std::vector<std::string> errors,
+            const std::vector <std::string> errors,
             const std::string &entete = "",
             const std::string &seqbio = ""
     );

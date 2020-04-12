@@ -15,14 +15,14 @@ void help() {
     cout << "    --help : display this message" << endl;
     cout << "    --count : only count sequence in file" << endl;
     cout << "    --only-errors : display only sequence with errors" << endl;
-    cout << "    --display-errors : display errors" << endl;
+    cout << "    --without-errors : don't display errors" << endl;
     cout << "    --comp : display sequence complementary" << endl;
     cout << "    --rev : display rev sequence" << endl;
 }
 
 int main(int argc, char **argv) {
     int i = 1;
-    bool display_error = false;
+    bool without_error = false;
     bool only_seq_with_error = false;
     bool count_only = false;
     bool comp = false;
@@ -38,8 +38,8 @@ int main(int argc, char **argv) {
         if (arg == "--help") {
             help();
             return 0;
-        } else if (arg == "--display-errors") {
-            display_error = true;
+        } else if (arg == "--without-errors") {
+            without_error = true;
         } else if (arg == "--only-errors") {
             only_seq_with_error = true;
         } else if (arg == "--count") {
@@ -62,12 +62,13 @@ int main(int argc, char **argv) {
         FastFile fast_file(file);
 
         fast_file.printFormat();
+        fast_file.printDataSize();
+
         if (!count_only) {
-            fast_file.printDataSize();
             fast_file.printData(only_seq_with_error, comp, rev);
-            fast_file.printErrors(display_error);
-        } else {
-            fast_file.printDataSize();
+        }
+        if (!without_error) {
+            fast_file.printErrors();
         }
     } catch (const char *error) {
         cerr << error << endl;

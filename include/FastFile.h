@@ -3,6 +3,7 @@
 
 #include <vector>
 
+#include "FastReader.h"
 #include "FastX.h"
 
 using namespace std;
@@ -13,14 +14,20 @@ private:
     vector<FastX *> data;
     string format;
 
-    string getFormat();
+protected:
+    static FastReader *getReader(istream *is);
 
 public:
     FastFile(char *file);
-    void	printFormat();
-    void	printDataSize();
-    void	printData(bool, bool, bool);
-    void	printErrors(bool);
+
+    void printFormat();
+
+    void printDataSize();
+
+    void printData(bool, bool, bool);
+
+    void printErrors();
+
     vector<FastX *> getData();
 };
 

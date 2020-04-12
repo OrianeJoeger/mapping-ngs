@@ -1,12 +1,21 @@
 #include <iostream>
 #include <string>
+#include <vector>
 
-#include "../../include/parser/FastParserQ.h"
-#include "../../include/FastQ.h"
+#include "../include/FastReaderQ.h"
 
 using namespace std;
 
-FastQ *FastParserQ::extract(istream *is) {
+FastReaderQ::FastReaderQ(istream *file_ptr) :
+        FastReader(file_ptr) {
+
+}
+
+string FastReaderQ::getFormat() const {
+    return "FASTQ";
+}
+
+FastQ *FastReaderQ::next() {
     char c;
     bool
             has_entete = false,
@@ -20,13 +29,13 @@ FastQ *FastParserQ::extract(istream *is) {
 
     vector <string> errors;
 
-    while (!is->eof()) {
-        c = is->get();
+    while (!this->file_ptr->eof()) {
+        c = this->file_ptr->get();
 
         if (c > ' ') {
             if (need_qualite) {
                 // On attends la qualite.
-                getline(*(is), tmp);
+                getline(*(this->file_ptr), tmp);
                 qualite += c + tmp;
 
                 // on la qualité, on peut stopper le parcours.
@@ -39,26 +48,26 @@ FastQ *FastParserQ::extract(istream *is) {
 
                 has_entete = true;
 
-                getline(*(is), entete);
+                getline(*(this->file_ptr), entete);
             } else if (c == '+') {
                 // Fin d'entete de sequence
                 if (!has_entete || !has_seq) {
                     throw "Fichier mal formatté";
                 }
 
-                getline(*(is), tmp);
+                getline(*(this->file_ptr), tmp);
 
                 need_qualite = true;
             } else if (has_entete) {
                 // On a une entete, on charge la sequence.
-                if (FastParserQ::isNucleic(c) || FastParserQ::isAmino(c)) {
+                if (FastReaderQ::isNucleic(c) || FastReaderQ::isAmino(c)) {
                     has_seq = true;
                     seq += c;
                 } else {
-                    errors.push_back(
-                            "Erreur : mauvais caractère rencontré a la position : " + to_string(is->tellg())
-                    );
                     seq += 'N';
+                    errors.push_back(
+                            "[POS: " + to_string(seq.size()) + "] Wrong character."
+                    );
                 }
             } else {
                 throw "Erreur : en-tête mal formatée";
@@ -71,11 +80,6 @@ FastQ *FastParserQ::extract(istream *is) {
     }
 
     if (has_entete || has_seq) {
-        /*
-        cerr << "H:" << entete << endl;
-        cerr << "S:" << seq << endl;
-        cerr << "Q:" << qualite << endl;
-        */
         throw "Fichier mal formatée";
     }
 

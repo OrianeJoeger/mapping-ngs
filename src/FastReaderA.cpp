@@ -2,13 +2,20 @@
 #include <string>
 #include <vector>
 
-#include "../../include/parser/FastParserA.h"
-#include "../../include/FastX.h"
-#include "../../include/FastA.h"
+#include "../include/FastReaderA.h"
 
 using namespace std;
 
-FastA *FastParserA::extract(istream *is) {
+FastReaderA::FastReaderA(istream *file_ptr) :
+        FastReader(file_ptr) {
+
+}
+
+string FastReaderA::getFormat() const {
+    return "FASTA";
+}
+
+FastA *FastReaderA::next() {
     char c;
     bool
             has_entete = false,
@@ -20,30 +27,30 @@ FastA *FastParserA::extract(istream *is) {
 
     vector <string> errors;
 
-    while (!is->eof()) {
-        c = is->get();
+    while (!this->file_ptr->eof()) {
+        c = this->file_ptr->get();
 
         if (c > ' ') {
             if (c == ';' || c == '>') {
                 if (has_seq) {
-                    is->seekg((int) is->tellg() - 1);
+                    this->file_ptr->seekg((int) this->file_ptr->tellg() - 1);
 
                     break;
                 }
 
                 has_entete = true;
 
-                getline(*(is), tmp);
+                getline(*(this->file_ptr), tmp);
                 entete += tmp;
             } else if (has_entete) {
-                if (FastParserA::isNucleic(c) || FastParserA::isAmino(c)) {
+                if (FastReaderA::isNucleic(c) || FastReaderA::isAmino(c)) {
                     has_seq = true;
                     seq += c;
                 } else {
-                    errors.push_back(
-                            "Erreur : mauvais caractère rencontré a la position : " + to_string(is->tellg())
-                    );
                     seq += 'N';
+                    errors.push_back(
+                            "[POS: " + to_string(seq.size()) + "] Wrong character."
+                    );
                 }
             } else {
                 throw "Erreur : en-tête mal formatée";

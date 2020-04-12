@@ -2,50 +2,20 @@
 #include <string>
 
 #include "../include/FastReader.h"
-#include "../include/parser/FastParserA.h"
-#include "../include/parser/FastParserQ.h"
-#include "../include/FastX.h"
-#include "../include/FastA.h"
-#include "../include/FastQ.h"
 
 using namespace std;
 
-FastReader::FastReader(istream *file_ptr)
-        : file_ptr(file_ptr), type(0) {
-    char c;
+FastReader::FastReader(istream *file_ptr) : file_ptr(file_ptr) {
 
-    while (!this->file_ptr->eof() && (c = this->file_ptr->get()) > ' ') {
-        if (c == ';' || c == '>') {
-            this->parser = new FastParserA;
-            this->type = FastReader::TYPE_FASTA;
-        } else if (c == '@') {
-            this->parser = new FastParserQ;
-            this->type = FastReader::TYPE_FASTQ;
-        }
-
-        break;
-    }
-
-    if (this->type == 0) {
-        throw "Error unknown format type";
-    }
-
-    // rewind ptr
-    this->file_ptr->seekg(0);
 }
 
-FastX *FastReader::next() {
-    return this->parser->extract(this->file_ptr);
+bool FastReader::isNucleic(char c) {
+    return c == 'A' || c == 'C' || c == 'G' || c == 'T' || c == 'U' || c == 'R' || c == 'Y' || c == 'S' || c == 'W' ||
+           c == 'K' || c == 'M' || c == 'B' || c == 'D' || c == 'H' || c == 'V' || c == 'N' || c == '.' || c == '-';
 }
 
-string FastReader::getFormat() {
-    switch (this->type) {
-        case FastReader::TYPE_FASTA:
-            return "FASTA";
-
-        case FastReader::TYPE_FASTQ:
-            return "FASTQ";
-    }
-
-    return NULL;
+bool FastReader::isAmino(char c) {
+    return c == 'A' || c == 'C' || c == 'D' || c == 'E' || c == 'F' || c == 'G' || c == 'H' || c == 'I' || c == 'J' ||
+           c == 'K' || c == 'L' || c == 'M' || c == 'N' || c == 'P' || c == 'Q' || c == 'R' || c == 'S' || c == 'T' ||
+           c == 'V' || c == 'W' || c == 'Y';
 }
