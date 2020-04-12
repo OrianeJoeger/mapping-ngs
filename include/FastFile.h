@@ -13,11 +13,14 @@ private:
     vector<FastX *> data;
     string format;
 
-public:
-    FastFile(char *file);
-
     string getFormat();
 
+public:
+    FastFile(char *file);
+    void	printFormat();
+    void	printDataSize();
+    void	printData(bool, bool, bool);
+    void	printErrors(bool);
     vector<FastX *> getData();
 };
 

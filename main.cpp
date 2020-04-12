@@ -61,49 +61,13 @@ int main(int argc, char **argv) {
     try {
         FastFile fast_file(file);
 
-        cout << "[F:] " << fast_file.getFormat() << endl;
-        cout << "[N:] " << fast_file.getData().size() << endl;
-
+        fast_file.printFormat();
         if (!count_only) {
-            for (FastX *seq : fast_file.getData()) {
-                if (only_seq_with_error) {
-                    if (seq->hasErrors()) {
-                        cout << endl;
-
-                        cout << "[H:] " << seq->getHeader() << endl;
-                        cout << "[S:] " << seq->getSeqbio() << endl;
-                        if (comp) cout << "[C:] " << seq->getSeqComp() << endl;
-                        if (rev) cout << "[R:] " << seq->getSeqRev() << endl;
-                        if (fast_file.getFormat() == "FASTQ") {
-                            cout << "[Q:] " << ((FastQ *) seq)->getQualite() << endl;
-                        }
-                        cout << "[E:] " << seq->countErrors() << endl;
-
-                        if (display_error) {
-                            for (string error : seq->getErrors()) {
-                                cout << "    - " << error << endl;
-                            }
-                        }
-                    }
-                } else {
-                    cout << endl;
-
-                    cout << "[H:] " << seq->getHeader() << endl;
-                    cout << "[S:] " << seq->getSeqbio() << endl;
-                    if (comp) cout << "[C:] " << seq->getSeqComp() << endl;
-                    if (rev) cout << "[R:] " << seq->getSeqRev() << endl;
-                    if (fast_file.getFormat() == "FASTQ") {
-                        cout << "[Q:] " << ((FastQ *) seq)->getQualite() << endl;
-                    }
-                    if (seq->hasErrors()) cout << "[E:] " << seq->countErrors() << endl;
-
-                    if (display_error) {
-                        for (string error : seq->getErrors()) {
-                            cout << "    - " << error << endl;
-                        }
-                    }
-                }
-            }
+            fast_file.printDataSize();
+            fast_file.printData(only_seq_with_error, comp, rev);
+            fast_file.printErrors(display_error);
+        } else {
+            fast_file.printDataSize();
         }
     } catch (const char *error) {
         cerr << error << endl;
