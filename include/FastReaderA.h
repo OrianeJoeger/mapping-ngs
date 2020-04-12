@@ -3,7 +3,7 @@
 
 #include <string>
 #include "FastReader.h"
-#include "FastA.h"
+#include "SeqA.h"
 
 using namespace std;
 
@@ -12,7 +12,7 @@ public:
 
     FastReaderA(std::istream *file_ptr);
 
-    virtual FastA *next();
+    virtual SeqA *next();
 
     virtual string getFormat() const;
 };

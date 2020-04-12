@@ -15,7 +15,7 @@ string FastReaderA::getFormat() const {
     return "FASTA";
 }
 
-FastA *FastReaderA::next() {
+SeqA *FastReaderA::next() {
     char c;
     bool
             has_entete = false,
@@ -59,7 +59,7 @@ FastA *FastReaderA::next() {
     }
 
     if (has_entete && has_seq) {
-        return new FastA(errors, entete, seq);
+        return new SeqA(errors, entete, seq);
     }
 
     if (has_entete || has_seq) {

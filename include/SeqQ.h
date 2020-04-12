@@ -1,14 +1,14 @@
-#ifndef __FASTA_Q__
-#define __FASTA_Q__
+#ifndef __SeqA_Q__
+#define __SeqA_Q__
 
-#include "FastX.h"
+#include "Seq.h"
 #include <string>
 
-class FastQ : public FastX {
+class SeqQ : public Seq {
 private:
     std::string qualite;
 public:
-    FastQ(
+    SeqQ(
             const std::vector <std::string> errors,
             const std::string &entete = "",
             const std::string &seqbio = "",

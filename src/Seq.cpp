@@ -3,34 +3,34 @@
 #include <list>
 #include <vector>
 
-#include "../include/FastX.h"
+#include "../include/Seq.h"
 
 using namespace std;
 
-FastX::FastX(const vector <string> errors, const string &entete, const string &seqbio) :
+Seq::Seq(const vector <string> errors, const string &entete, const string &seqbio) :
         errors(errors),
         entete(entete),
         seqbio(seqbio) {
 
 }
 
-string FastX::getSeqbio() {
+string Seq::getSeqbio() {
     return seqbio;
 }
 
-string FastX::getHeader() {
+string Seq::getHeader() {
     return entete;
 }
 
-void FastX::setHeader(string header) {
+void Seq::setHeader(string header) {
     entete = header;
 }
 
-size_t FastX::getSeqbioLength() {
+size_t Seq::getSeqbioLength() {
     return seqbio.length();
 }
 
-string FastX::getSeqComp() {
+string Seq::getSeqComp() {
     size_t seqLength = this->seqbio.size();
     string seqComp;
     for (size_t i = 0; i < seqLength; i++) {
@@ -55,7 +55,7 @@ string FastX::getSeqComp() {
     return seqComp;
 }
 
-string FastX::getSeqRev() {
+string Seq::getSeqRev() {
     size_t seqLength = this->seqbio.size();
     string seqRev;
     for (size_t i = seqLength; i > 0; i--) {
@@ -64,11 +64,11 @@ string FastX::getSeqRev() {
     return seqRev;
 }
 
-string FastX::getSeqRevComp() {
+string Seq::getSeqRevComp() {
     return "";
 }
 
-bool FastX::hasErrors() const {
+bool Seq::hasErrors() const {
     if (this->errors.size()) {
         return true;
     }
@@ -76,10 +76,10 @@ bool FastX::hasErrors() const {
     return false;
 }
 
-int FastX::countErrors() const {
+int Seq::countErrors() const {
     return this->errors.size();
 }
 
-vector <std::string> FastX::getErrors() const {
+vector <std::string> Seq::getErrors() const {
     return this->errors;
 }

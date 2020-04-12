@@ -4,7 +4,7 @@
 #include <iostream>
 #include <string>
 
-#include "FastX.h"
+#include "Seq.h"
 
 class FastReader {
 protected:
@@ -15,12 +15,9 @@ protected:
     static bool isAmino(char c);
 
 public:
-    static const int TYPE_FASTQ = 1;
-    static const int TYPE_FASTA = 2;
-
     FastReader(std::istream *file_ptr);
 
-    virtual FastX *next() = 0;
+    virtual Seq *next() = 0;
 
     virtual std::string getFormat() const = 0;
 };

@@ -3,19 +3,19 @@
 #include <fstream>
 #include <vector>
 
-#ifndef __FASTX_H__
-#define __FASTX_H__
+#ifndef __SEQ_H__
+#define __SEQ_H__
 
 // se renseigner sur cassert 
 
-class FastX {
+class Seq {
 protected:
     std::string entete;
     std::string seqbio;
 
     std::vector <std::string> errors;
 public:
-    FastX(
+    Seq(
             const std::vector <std::string> errors,
             const std::string &entete = "",
             const std::string &seqbio = ""

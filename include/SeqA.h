@@ -1,13 +1,13 @@
-#ifndef __FASTA_H__
-#define __FASTA_H__
+#ifndef __SEQA_H__
+#define __SEQA_H__
 
-#include "FastX.h"
+#include "Seq.h"
 #include <string>
 
 
-class FastA : public FastX {
+class SeqA : public Seq {
 public:
-    FastA(
+    SeqA(
             const std::vector <std::string> errors,
             const std::string &entete = "",
             const std::string &seqbio = ""

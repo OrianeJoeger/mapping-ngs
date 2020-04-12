@@ -4,14 +4,14 @@
 #include <vector>
 
 #include "FastReader.h"
-#include "FastX.h"
+#include "Seq.h"
 
 using namespace std;
 
 class FastFile {
 
 private:
-    vector<FastX *> data;
+    vector<Seq *> data;
     string format;
 
 protected:
@@ -28,7 +28,7 @@ public:
 
     void printErrors();
 
-    vector<FastX *> getData();
+    vector<Seq *> getData();
 };
 
 #endif //CPP_FASTFILE_H

@@ -15,7 +15,7 @@ string FastReaderQ::getFormat() const {
     return "FASTQ";
 }
 
-FastQ *FastReaderQ::next() {
+SeqQ *FastReaderQ::next() {
     char c;
     bool
             has_entete = false,
@@ -76,7 +76,7 @@ FastQ *FastReaderQ::next() {
     }
 
     if (need_qualite && has_seq) {
-        return new FastQ(errors, entete, seq, qualite);
+        return new SeqQ(errors, entete, seq, qualite);
     }
 
     if (has_entete || has_seq) {

@@ -5,14 +5,14 @@
 #include <istream>
 
 #include "FastReader.h"
-#include "FastQ.h"
+#include "SeqQ.h"
 
 class FastReaderQ : public FastReader {
 public:
 
     FastReaderQ(std::istream *file_ptr);
 
-    virtual FastQ *next();
+    virtual SeqQ *next();
 
     virtual std::string getFormat() const;
 };

@@ -1,12 +1,7 @@
-#include <iostream>
-#include <fstream>
 #include <string>
+#include "include/FastFile.h"
 
 using namespace std;
-
-#include "include/FastFile.h"
-#include "include/FastX.h"
-#include "include/FastQ.h"
 
 void help() {
     cout << "Fast[A-Q] parser : " << endl;

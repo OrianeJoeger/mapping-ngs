@@ -4,7 +4,8 @@
 #include "../include/FastReader.h"
 #include "../include/FastReaderA.h"
 #include "../include/FastReaderQ.h"
-#include "../include/FastX.h"
+#include "../include/Seq.h"
+#include "../include/SeqQ.h"
 
 using namespace std;
 
@@ -21,7 +22,7 @@ FastFile::FastFile(char *file) {
 
     this->format = reader->getFormat();
 
-    FastX *fast;
+    Seq *fast;
     try {
         while ((fast = reader->next()) != NULL) {
             this->data.push_back(fast);
@@ -52,7 +53,7 @@ FastReader *FastFile::getReader(istream *is) {
     throw "Error unknown format type";
 }
 
-vector<FastX *> FastFile::getData() {
+vector<Seq *> FastFile::getData() {
     return this->data;
 }
 
@@ -67,7 +68,7 @@ void FastFile::printDataSize() {
 void FastFile::printData(bool only_seq_with_error, bool comp, bool rev) {
     unsigned int i = 0;
     unsigned int l = this->getData().size();
-    FastX *seq;
+    Seq *seq;
 
     for (; i < l; i++) {
         seq = this->getData()[i];
@@ -79,8 +80,8 @@ void FastFile::printData(bool only_seq_with_error, bool comp, bool rev) {
                 cout << "[COMPLEMENTARY:] " << seq->getSeqComp() << endl;
             if (rev)
                 cout << "[REVERSE:] " << seq->getSeqRev() << endl;
-            if (this->format == "FASTQ")
-                cout << "[QUALITY:] " << ((FastQ *) seq)->getQualite() << endl;
+            if (this->format == "SeqQ")
+                cout << "[QUALITY:] " << ((SeqQ *) seq)->getQualite() << endl;
         }
     }
 
@@ -94,7 +95,7 @@ void FastFile::printErrors() {
             j,
             m;
 
-    FastX *seq;
+    Seq *seq;
     string error;
 
     for (; i < l; i++) {
