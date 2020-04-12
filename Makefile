@@ -33,7 +33,7 @@ archive: $(HEADERS) $(SOURCES) arch_makefile
 	tar -czf $(PROG).tgz $^
 
 pull:
-	git pull origin master
+	git stash && git pull origin master && git stash pop
 
 push:
 	git push origin master
