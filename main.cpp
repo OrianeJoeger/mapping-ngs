@@ -35,8 +35,14 @@ int main(int argc, char **argv) {
         i++;
     }
 
-    FastFile fast_file(file);
-    cout << "-- Format [" << fast_file.getFormat() << "]" << endl;
+    try {
+        FastFile fast_file(file);
+        cout << "-- Format [" << fast_file.getFormat() << "]" << endl;
 
-    cout << "-- Size [" << fast_file.getData().size() << "]" << endl;
+        cout << "-- Size [" << fast_file.getData().size() << "]" << endl;
+    } catch (const char *error) {
+        cerr << e << endl;
+    } catch (...) {
+        cerr << "Fatal error" << endl;
+    }
 }
