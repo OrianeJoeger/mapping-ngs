@@ -38,9 +38,9 @@ int main(int argc, char **argv) {
         if (arg == "--help") {
             help();
             return 0;
-        } else if (arg == "--display-error") {
+        } else if (arg == "--display-errors") {
             display_error = true;
-        } else if (arg == "--only-error") {
+        } else if (arg == "--only-errors") {
             only_seq_with_error = true;
         } else if (arg == "--count") {
             count_only = true;
