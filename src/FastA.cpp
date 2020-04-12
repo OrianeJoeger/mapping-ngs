@@ -5,7 +5,7 @@
 
 using namespace std;
 
-FastA::FastA(const string &entete, const string &seqbio) :
-        FastX(entete, seqbio) {
+FastA::FastA(const std::vector <std::string> errors, const string &entete, const string &seqbio) :
+        FastX(errors, entete, seqbio) {
 
 }

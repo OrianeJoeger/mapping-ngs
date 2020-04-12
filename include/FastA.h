@@ -7,7 +7,11 @@
 
 class FastA : public FastX {
 public:
-    FastA(const std::string &entete = "", const std::string &seqbio = "");
+    FastA(
+            const std::vector <std::string> errors,
+            const std::string &entete = "",
+            const std::string &seqbio = ""
+    );
 };
 
 #endif

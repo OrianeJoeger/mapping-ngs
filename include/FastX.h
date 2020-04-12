@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <fstream>
+#include <vector>
 
 #ifndef __FASTX_H__
 #define __FASTX_H__
@@ -11,8 +12,14 @@ class FastX {
 protected:
     std::string entete;
     std::string seqbio;
+
+    std::vector <std::string> errors;
 public:
-    FastX(const std::string &entete = "", const std::string &seqbio = "");
+    FastX(
+            const std::vector<std::string> errors,
+            const std::string &entete = "",
+            const std::string &seqbio = ""
+    );
 
     std::string getSeqbio();
 
@@ -27,6 +34,12 @@ public:
     std::string getSeqRev();
 
     std::string getSeqRevComp();
+
+    bool hasErrors() const;
+
+    int countErrors() const;
+
+    std::vector <std::string> getErrors() const;
 };
 
 #endif

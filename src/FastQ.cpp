@@ -5,8 +5,8 @@
 
 using namespace std;
 
-FastQ::FastQ(const string &entete, const string &seqbio, const string &qualite) :
-        FastX(entete, seqbio),
+FastQ::FastQ(const vector <string> errors, const string &entete, const string &seqbio, const string &qualite) :
+        FastX(errors, entete, seqbio),
         qualite(qualite) {
 
 }

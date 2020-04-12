@@ -4,6 +4,7 @@
 #include <iostream>
 #include <string>
 
+#include "parser/FastParserX.h"
 #include "FastX.h"
 #include "FastA.h"
 #include "FastQ.h"
@@ -11,15 +12,9 @@
 class FastReader {
 private:
     std::istream *file_ptr;
+    FastParserX *parser;
     int type;
 
-    static bool isNucleic(char c);
-
-    static bool isAmino(char c);
-
-    FastA *extractFastA();
-
-    FastQ *extractFastQ();
 public:
     static const int TYPE_FASTQ = 1;
     static const int TYPE_FASTA = 2;

@@ -10,14 +10,15 @@ using namespace std;
 class FastFile {
 
 private:
-	vector<FastX*>	data;
-	string			format;
+    vector<FastX *> data;
+    string format;
 
 public:
-	FastFile(char *file);
+    FastFile(char *file);
 
-	string			getFormat();
-	vector<FastX*>	getData();
+    string getFormat();
+
+    vector<FastX *> getData();
 };
 
 #endif //CPP_FASTFILE_H

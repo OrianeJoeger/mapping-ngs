@@ -8,7 +8,12 @@ class FastQ : public FastX {
 private:
     std::string qualite;
 public:
-    FastQ(const std::string &entete = "", const std::string &seqbio = "", const std::string &qualite = "");
+    FastQ(
+            const std::vector <std::string> errors,
+            const std::string &entete = "",
+            const std::string &seqbio = "",
+            const std::string &qualite = ""
+    );
 
     std::string getQualite();
 };

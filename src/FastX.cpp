@@ -1,12 +1,14 @@
 #include <string>
 #include <algorithm>
 #include <list>
+#include <vector>
 
 #include "../include/FastX.h"
 
 using namespace std;
 
-FastX::FastX(const string &entete, const string &seqbio) :
+FastX::FastX(const vector <string> errors, const string &entete, const string &seqbio) :
+        errors(errors),
         entete(entete),
         seqbio(seqbio) {
 
@@ -64,4 +66,20 @@ string FastX::getSeqRev() {
 
 string FastX::getSeqRevComp() {
     return "";
+}
+
+bool FastX::hasErrors() const {
+    if (this->errors.size()) {
+        return true;
+    }
+
+    return false;
+}
+
+int FastX::countErrors() const {
+    return this->errors.size();
+}
+
+vector <std::string> FastX::getErrors() const {
+    return this->errors;
 }
