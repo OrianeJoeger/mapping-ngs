@@ -1,9 +1,9 @@
 #include <vector>
 
 #include "../include/FastFile.h"
-#include "../include/FastReader.h"
-#include "../include/FastReaderA.h"
-#include "../include/FastReaderQ.h"
+#include "../include/Reader.h"
+#include "../include/ReaderA.h"
+#include "../include/ReaderQ.h"
 #include "../include/Seq.h"
 #include "../include/SeqQ.h"
 
@@ -18,12 +18,12 @@ FastFile::FastFile(char *file) {
 
     istream is(&fb);
 
-    FastReader *reader = FastFile::getReader(&is);
-
-    this->format = reader->getFormat();
-
-    Seq *fast;
     try {
+        Reader *reader = FastFile::getReader(&is);
+
+        this->format = reader->getFormat();
+
+        Seq *fast;
         while ((fast = reader->next()) != NULL) {
             this->data.push_back(fast);
         }
@@ -34,7 +34,7 @@ FastFile::FastFile(char *file) {
     }
 }
 
-FastReader *FastFile::getReader(istream *is) {
+Reader *FastFile::getReader(istream *is) {
     char c;
 
     while (!is->eof() && (c = is->get()) < ' ') {
@@ -45,9 +45,9 @@ FastReader *FastFile::getReader(istream *is) {
     is->seekg(0);
 
     if (c == ';' || c == '>') {
-        return new FastReaderA(is);
+        return new ReaderA(is);
     } else if (c == '@') {
-        return new FastReaderQ(is);
+        return new ReaderQ(is);
     }
 
     throw "Error unknown format type";

@@ -4,13 +4,13 @@
 #include <string>
 #include <istream>
 
-#include "FastReader.h"
+#include "Reader.h"
 #include "SeqQ.h"
 
-class FastReaderQ : public FastReader {
+class ReaderQ : public Reader {
 public:
 
-    FastReaderQ(std::istream *file_ptr);
+    ReaderQ(std::istream *file_ptr);
 
     virtual SeqQ *next();
 

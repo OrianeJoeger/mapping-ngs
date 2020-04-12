@@ -3,7 +3,7 @@
 
 #include <vector>
 
-#include "FastReader.h"
+#include "Reader.h"
 #include "Seq.h"
 
 using namespace std;
@@ -15,7 +15,7 @@ private:
     string format;
 
 protected:
-    static FastReader *getReader(istream *is);
+    static Reader *getReader(istream *is);
 
 public:
     FastFile(char *file);

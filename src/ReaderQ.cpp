@@ -2,20 +2,22 @@
 #include <string>
 #include <vector>
 
-#include "../include/FastReaderQ.h"
+#include "../include/Reader.h"
+#include "../include/ReaderQ.h"
+#include "../include/SeqQ.h"
 
 using namespace std;
 
-FastReaderQ::FastReaderQ(istream *file_ptr) :
-        FastReader(file_ptr) {
+ReaderQ::ReaderQ(istream *file_ptr) :
+        Reader(file_ptr) {
 
 }
 
-string FastReaderQ::getFormat() const {
+string ReaderQ::getFormat() const {
     return "FASTQ";
 }
 
-SeqQ *FastReaderQ::next() {
+SeqQ *ReaderQ::next() {
     char c;
     bool
             has_entete = false,
@@ -60,7 +62,7 @@ SeqQ *FastReaderQ::next() {
                 need_qualite = true;
             } else if (has_entete) {
                 // On a une entete, on charge la sequence.
-                if (FastReaderQ::isNucleic(c) || FastReaderQ::isAmino(c)) {
+                if (ReaderQ::isNucleic(c) || ReaderQ::isAmino(c)) {
                     has_seq = true;
                     seq += c;
                 } else {

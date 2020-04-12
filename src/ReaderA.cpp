@@ -2,20 +2,22 @@
 #include <string>
 #include <vector>
 
-#include "../include/FastReaderA.h"
+#include "../include/Reader.h"
+#include "../include/ReaderA.h"
+#include "../include/SeqA.h"
 
 using namespace std;
 
-FastReaderA::FastReaderA(istream *file_ptr) :
-        FastReader(file_ptr) {
+ReaderA::ReaderA(istream *file_ptr) :
+        Reader(file_ptr) {
 
 }
 
-string FastReaderA::getFormat() const {
+string ReaderA::getFormat() const {
     return "FASTA";
 }
 
-SeqA *FastReaderA::next() {
+SeqA *ReaderA::next() {
     char c;
     bool
             has_entete = false,
@@ -43,7 +45,7 @@ SeqA *FastReaderA::next() {
                 getline(*(this->file_ptr), tmp);
                 entete += tmp;
             } else if (has_entete) {
-                if (FastReaderA::isNucleic(c) || FastReaderA::isAmino(c)) {
+                if (ReaderA::isNucleic(c) || ReaderA::isAmino(c)) {
                     has_seq = true;
                     seq += c;
                 } else {

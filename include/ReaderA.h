@@ -2,15 +2,15 @@
 #define CPP_FASTREADERA_H
 
 #include <string>
-#include "FastReader.h"
+#include "Reader.h"
 #include "SeqA.h"
 
 using namespace std;
 
-class FastReaderA : public FastReader {
+class ReaderA : public Reader {
 public:
 
-    FastReaderA(std::istream *file_ptr);
+    ReaderA(std::istream *file_ptr);
 
     virtual SeqA *next();
 

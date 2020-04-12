@@ -6,7 +6,7 @@
 
 #include "Seq.h"
 
-class FastReader {
+class Reader {
 protected:
     std::istream *file_ptr;
 
@@ -15,7 +15,7 @@ protected:
     static bool isAmino(char c);
 
 public:
-    FastReader(std::istream *file_ptr);
+    Reader(std::istream *file_ptr);
 
     virtual Seq *next() = 0;
 
