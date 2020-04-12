@@ -22,10 +22,6 @@ string Seq::getHeader() {
     return entete;
 }
 
-void Seq::setHeader(string header) {
-    entete = header;
-}
-
 size_t Seq::getSeqbioLength() {
     return seqbio.length();
 }
@@ -80,6 +76,22 @@ int Seq::countErrors() const {
     return this->errors.size();
 }
 
-vector <std::string> Seq::getErrors() const {
-    return this->errors;
+vector <string> *Seq::getErrors() {
+    return &(this->errors);
+}
+
+string Seq::toString(bool display_comp, bool display_rev) {
+    string to_string = "[HEADER:] " + this->entete +
+                       +"\n[SEQUENCE:] " + this->seqbio;
+    if (display_comp)
+        to_string += "\n[COMPLEMENTARY:] " + this->getSeqComp();
+
+    if (display_rev)
+        to_string += "\n[REVERSE:] " + this->getSeqRev();
+
+    return to_string;
+}
+
+string Seq::toString() {
+    return this->toString(false, false);
 }

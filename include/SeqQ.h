@@ -16,6 +16,8 @@ public:
     );
 
     std::string getQualite();
+
+    virtual std::string toString(bool display_comp, bool display_rev);
 };
 
 #endif

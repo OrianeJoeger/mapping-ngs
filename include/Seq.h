@@ -12,7 +12,6 @@ class Seq {
 protected:
     std::string entete;
     std::string seqbio;
-
     std::vector <std::string> errors;
 public:
     Seq(
@@ -24,8 +23,6 @@ public:
     std::string getSeqbio();
 
     std::string getHeader();
-
-    void setHeader(std::string header);
 
     size_t getSeqbioLength();
 
@@ -39,7 +36,11 @@ public:
 
     int countErrors() const;
 
-    std::vector <std::string> getErrors() const;
+    std::vector <std::string> *getErrors();
+
+    virtual std::string toString(bool display_comp, bool display_rev);
+
+    virtual std::string toString();
 };
 
 #endif

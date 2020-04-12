@@ -62,26 +62,19 @@ void FastFile::printFormat() {
 }
 
 void FastFile::printDataSize() {
-    cout << "[SIZE:] " << this->getData().size() << endl;
+    cout << "[SIZE:] " << this->data.size() << endl;
 }
 
 void FastFile::printData(bool only_seq_with_error, bool comp, bool rev) {
     unsigned int i = 0;
-    unsigned int l = this->getData().size();
+    unsigned int l = this->data.size();
     Seq *seq;
 
     for (; i < l; i++) {
-        seq = this->getData()[i];
+        seq = this->data[i];
         if (only_seq_with_error ? seq->hasErrors() : true) {
             cout << "N°" << (i + 1) << " ------------------------------" << endl;
-            cout << "[HEADER:] " << seq->getHeader() << endl;
-            cout << "[SEQUENCE:] " << seq->getSeqbio() << endl;
-            if (comp)
-                cout << "[COMPLEMENTARY:] " << seq->getSeqComp() << endl;
-            if (rev)
-                cout << "[REVERSE:] " << seq->getSeqRev() << endl;
-            if (this->format == "SeqQ")
-                cout << "[QUALITY:] " << ((SeqQ *) seq)->getQualite() << endl;
+            cout << seq->toString(comp, rev) << endl;
         }
     }
 
@@ -89,22 +82,24 @@ void FastFile::printData(bool only_seq_with_error, bool comp, bool rev) {
 }
 
 void FastFile::printErrors() {
+    vector <string> *errors;
+
     unsigned int
             i = 0,
-            l = this->getData().size(),
-            j,
-            m;
+            l = this->data.size(),
+            j, m;
 
     Seq *seq;
     string error;
 
     for (; i < l; i++) {
-        seq = this->getData()[i];
+        seq = this->data[i];
 
         if (seq->hasErrors()) {
+            errors = seq->getErrors();
             cout << "[ERRORS:] SEQUENCE N°" << (i + 1) << endl;
             for (j = 0, m = seq->countErrors(); j < m; j++) {
-                cout << "    - " << seq->getErrors()[j] << endl;
+                cout << "    - " << (*(errors))[j] << endl;
             }
         }
     }

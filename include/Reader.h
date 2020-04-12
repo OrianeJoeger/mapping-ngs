@@ -10,11 +10,11 @@ class Reader {
 protected:
     std::istream *file_ptr;
 
+public:
     static bool isNucleic(char c);
 
     static bool isAmino(char c);
 
-public:
     Reader(std::istream *file_ptr);
 
     virtual Seq *next() = 0;
