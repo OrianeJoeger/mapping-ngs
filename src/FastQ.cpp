@@ -10,3 +10,7 @@ FastQ::FastQ(const string &entete, const string &seqbio, const string &qualite) 
         qualite(qualite) {
 
 }
+
+string FastQ::getQualite() {
+    return this->qualite;
+}

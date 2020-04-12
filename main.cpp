@@ -39,5 +39,4 @@ int main(int argc, char **argv) {
     cout << "-- Format [" << fast_file.getFormat() << "]" << endl;
 
     cout << "-- Size [" << fast_file.getData().size() << "]" << endl;
-
 }

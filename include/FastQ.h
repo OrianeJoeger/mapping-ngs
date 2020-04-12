@@ -9,6 +9,8 @@ private:
     std::string qualite;
 public:
     FastQ(const std::string &entete = "", const std::string &seqbio = "", const std::string &qualite = "");
+
+    std::string getQualite();
 };
 
 #endif
