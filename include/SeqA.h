@@ -9,6 +9,11 @@ class SeqA : public Seq {
 public:
     SeqA(
             const std::vector <std::string> errors,
+            const std::string &entete,
+            const EncodedSequence &seq
+    );
+    SeqA(
+            const std::vector <std::string> errors,
             const std::string &entete = "",
             const std::string &seqbio = ""
     );

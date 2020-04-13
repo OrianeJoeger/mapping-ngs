@@ -10,6 +10,12 @@ private:
 public:
     SeqQ(
             const std::vector <std::string> errors,
+            const std::string &entete,
+            const EncodedSequence &seq,
+            const std::string &qualite = ""
+    );
+    SeqQ(
+            const std::vector <std::string> errors,
             const std::string &entete = "",
             const std::string &seqbio = "",
             const std::string &qualite = ""

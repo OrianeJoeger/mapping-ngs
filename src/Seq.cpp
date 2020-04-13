@@ -4,33 +4,39 @@
 #include <vector>
 
 #include "../include/Seq.h"
+#include "../include/EncodedSequence.h"
 
 using namespace std;
+
+Seq::Seq(const vector <string> errors, const string &entete, const EncodedSequence &seq) :
+        errors(errors),
+        entete(entete),
+        seq(seq) {
+}
 
 Seq::Seq(const vector <string> errors, const string &entete, const string &seqbio) :
         errors(errors),
         entete(entete),
-        seqbio(seqbio) {
-
+        seq(seqbio) {
 }
 
 string Seq::getSeqbio() {
-    return seqbio;
+    return this->seq.toString();
 }
 
 string Seq::getHeader() {
-    return entete;
+    return this->entete;
 }
 
 size_t Seq::getSeqbioLength() {
-    return seqbio.length();
+    return this->seq.toString().length();
 }
 
 string Seq::getSeqComp() {
-    size_t seqLength = this->seqbio.size();
+    size_t seqLength = this->seq.size();
     string seqComp;
     for (size_t i = 0; i < seqLength; i++) {
-        switch (this->seqbio[i]) {
+        switch (this->seq[i]) {
             case 'A':
                 seqComp.push_back('T');   //pushback append
                 break;
@@ -52,10 +58,10 @@ string Seq::getSeqComp() {
 }
 
 string Seq::getSeqRev() {
-    size_t seqLength = this->seqbio.size();
+    size_t seqLength = this->seq.size();
     string seqRev;
     for (size_t i = seqLength; i > 0; i--) {
-        seqRev += seqbio[i - 1];
+        seqRev += this->seq[i - 1];
     }
     return seqRev;
 }
@@ -81,15 +87,15 @@ vector <string> *Seq::getErrors() {
 }
 
 string Seq::toString(bool display_comp, bool display_rev) {
-    string to_string = "[HEADER:] " + this->entete +
-                       +"\n[SEQUENCE:] " + this->seqbio;
+    string str = "[HEADER:] " + this->entete +
+                 +"\n[SEQUENCE:] " + this->seq.toString();
     if (display_comp)
-        to_string += "\n[COMPLEMENTARY:] " + this->getSeqComp();
+        str += "\n[COMPLEMENTARY:] " + this->getSeqComp();
 
     if (display_rev)
-        to_string += "\n[REVERSE:] " + this->getSeqRev();
+        str += "\n[REVERSE:] " + this->getSeqRev();
 
-    return to_string;
+    return str;
 }
 
 string Seq::toString() {

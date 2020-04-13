@@ -1,11 +1,12 @@
+#ifndef __SEQ_H__
+#define __SEQ_H__
+
 #include <iostream>
 #include <string>
 #include <fstream>
 #include <vector>
 
-#ifndef __SEQ_H__
-#define __SEQ_H__
-
+#include "EncodedSequence.h"
 // se renseigner sur cassert 
 
 class Seq {
@@ -13,7 +14,14 @@ protected:
     std::string entete;
     std::string seqbio;
     std::vector <std::string> errors;
+    EncodedSequence seq;
 public:
+    Seq(
+            const std::vector <std::string> errors,
+            const std::string &entete,
+            const EncodedSequence &seq
+    );
+
     Seq(
             const std::vector <std::string> errors,
             const std::string &entete = "",
