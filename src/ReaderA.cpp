@@ -24,17 +24,17 @@ SeqA *ReaderA::next() {
             has_seq = false;
     string
             entete = "",
-            seq = "",
-            tmp;
+            seq = "";
 
     vector <string> errors;
 
     while (!this->file_ptr->eof()) {
         c = this->file_ptr->get();
-
         if (c > ' ') {
             if (c == ';' || c == '>') {
                 if (has_seq) {
+                    // we already have a seq, so this is a new header :
+                    // we move back file cursor, and we stop while
                     this->file_ptr->seekg((int) this->file_ptr->tellg() - 1);
 
                     break;
@@ -42,26 +42,25 @@ SeqA *ReaderA::next() {
 
                 has_entete = true;
 
-                getline(*(this->file_ptr), tmp);
-                entete += tmp;
+                // read & append line
+                do {
+                    entete += c;
+                } while (!this->file_ptr->eof() && (c = this->file_ptr->get()) != '\n');
             } else if (has_entete) {
-                if (ReaderA::isNucleic(c) || ReaderA::isAmino(c)) {
-                    has_seq = true;
+                has_seq = true;
+                do {
                     seq += c;
-                } else {
-                    seq += 'N';
-                    errors.push_back(
-                            "[POS: " + to_string(seq.size()) + "] Wrong character."
-                    );
-                }
+                } while (!this->file_ptr->eof() && (c = this->file_ptr->get()) != '\n');
             } else {
-                throw "Erreur : en-tête mal formatée";
+                cerr << "Wrong character" << endl;
+                // move cursor to next line
+                while (!this->file_ptr->eof() && this->file_ptr->get() != '\n');
             }
         }
     }
 
     if (has_entete && has_seq) {
-        return new SeqA(errors, entete, seq);
+        return new SeqA(entete, seq);
     }
 
     if (has_entete || has_seq) {

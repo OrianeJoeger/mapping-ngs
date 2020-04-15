@@ -8,16 +8,14 @@
 
 using namespace std;
 
-Seq::Seq(const vector <string> errors, const string &entete, const EncodedSequence &seq) :
-        errors(errors),
+Seq::Seq(const string &entete, const EncodedSequence &seq) :
         entete(entete),
         seq(seq) {
 }
 
-Seq::Seq(const vector <string> errors, const string &entete, const string &seqbio) :
-        errors(errors),
+Seq::Seq(const string &entete, const string &seqbio) :
         entete(entete),
-        seq(seqbio) {
+        seq(seqbio, &errors) {
 }
 
 string Seq::getSeqbio() {
@@ -50,7 +48,7 @@ string Seq::getSeqComp() {
                 seqComp.push_back('A');
                 break;
             default:
-                seqComp.push_back(seqbio[i]);
+                seqComp.push_back(this->seq[i]);
                 break;
         }
     }

@@ -11,14 +11,15 @@ using namespace std;
 
 const size_t EncodedSequence::endpos = (size_t) - 1;
 
-EncodedSequence::EncodedSequence(const char *seq) : tab(NULL), n(0), N(0) {
+EncodedSequence::EncodedSequence(const char *seq, std::vector <std::string> *errors)
+        : tab(NULL), n(0), N(0) {
     size_t i = 0;
     while (seq && (seq[i] != '\0')) {
         if (seq[i] > ' ') {
             if (Reader::isNucleic(seq[i])) {
                 ++n;
             } else {
-                cerr << "Warning: caractère '" << seq[i] << "' non valide" << endl;
+                errors->push_back("Warn : bad character at pos " + to_string(i));
             }
         }
         ++i;
@@ -33,16 +34,16 @@ EncodedSequence::EncodedSequence(const char *seq) : tab(NULL), n(0), N(0) {
     }
 }
 
-EncodedSequence::EncodedSequence(const std::string sseq) : tab(NULL), n(0), N(0) {
-    const char *seq = sseq.c_str();
-
+EncodedSequence::EncodedSequence(const std::string seqbio, std::vector <std::string> *errors)
+        : tab(NULL), n(0), N(0) {
+    const char * seq = seqbio.c_str();
     size_t i = 0;
     while (seq && (seq[i] != '\0')) {
         if (seq[i] > ' ') {
             if (Reader::isNucleic(seq[i])) {
                 ++n;
             } else {
-                cerr << "Warning: caractère '" << seq[i] << "' non valide" << endl;
+                errors->push_back("Warn : bad character at pos " + to_string(i));
             }
         }
         ++i;

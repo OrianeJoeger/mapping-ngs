@@ -4,22 +4,20 @@
 // doxygen peut reconnaître les commentaires /** */ (qui commencent par /** au lieu de /*)
 // pour automatiser la création de documentations
 
-#include <stdint.h>
+#include <cstdint>
 #include <iostream>
 #include <string>
 
 class EncodedSequence {
-    friend void test_EncodedSequence();
-
 private:
     uint8_t *tab;
     size_t n;
     size_t N;
 
 public:
-    EncodedSequence(const char *seq = NULL);
+    EncodedSequence(const char *seq = NULL, std::vector <std::string> *errors = NULL);
 
-    EncodedSequence(const std::string seq);
+    EncodedSequence(const std::string seq, std::vector <std::string> *errors);
 
     EncodedSequence(const EncodedSequence &seq);
 

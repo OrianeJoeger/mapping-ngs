@@ -26,8 +26,7 @@ SeqQ *ReaderQ::next() {
     string
             entete = "",
             seq = "",
-            qualite = "",
-            tmp;
+            qualite = "";
 
     vector <string> errors;
 
@@ -37,8 +36,10 @@ SeqQ *ReaderQ::next() {
         if (c > ' ') {
             if (need_qualite) {
                 // On attends la qualite.
-                getline(*(this->file_ptr), tmp);
-                qualite += c + tmp;
+                // read & append line
+                do {
+                    qualite += c;
+                } while (!this->file_ptr->eof() && (c = this->file_ptr->get()) != '\n');
 
                 // on la qualité, on peut stopper le parcours.
                 break;
@@ -50,27 +51,27 @@ SeqQ *ReaderQ::next() {
 
                 has_entete = true;
 
-                getline(*(this->file_ptr), entete);
+                // read & append line
+                do {
+                    entete += c;
+                } while (!this->file_ptr->eof() && (c = this->file_ptr->get()) != '\n');
             } else if (c == '+') {
                 // Fin d'entete de sequence
                 if (!has_entete || !has_seq) {
                     throw "Fichier mal formatté";
                 }
 
-                getline(*(this->file_ptr), tmp);
-
                 need_qualite = true;
+
+                // move to next line
+                while (!this->file_ptr->eof() && (c = this->file_ptr->get()) != '\n');
             } else if (has_entete) {
                 // On a une entete, on charge la sequence.
-                if (ReaderQ::isNucleic(c) || ReaderQ::isAmino(c)) {
-                    has_seq = true;
+                has_seq = true;
+                // read & append line
+                do {
                     seq += c;
-                } else {
-                    seq += 'N';
-                    errors.push_back(
-                            "[POS: " + to_string(seq.size()) + "] Wrong character."
-                    );
-                }
+                } while (!this->file_ptr->eof() && (c = this->file_ptr->get()) != '\n');
             } else {
                 throw "Erreur : en-tête mal formatée";
             }
@@ -78,7 +79,7 @@ SeqQ *ReaderQ::next() {
     }
 
     if (need_qualite && has_seq) {
-        return new SeqQ(errors, entete, seq, qualite);
+        return new SeqQ(entete, seq, qualite);
     }
 
     if (has_entete || has_seq) {

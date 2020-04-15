@@ -12,18 +12,15 @@
 class Seq {
 protected:
     std::string entete;
-    std::string seqbio;
     std::vector <std::string> errors;
     EncodedSequence seq;
 public:
     Seq(
-            const std::vector <std::string> errors,
             const std::string &entete,
             const EncodedSequence &seq
     );
 
     Seq(
-            const std::vector <std::string> errors,
             const std::string &entete = "",
             const std::string &seqbio = ""
     );

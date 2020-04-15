@@ -5,14 +5,14 @@
 
 using namespace std;
 
-SeqQ::SeqQ(const vector <string> errors, const string &entete, const EncodedSequence &seqbio, const string &qualite) :
-        Seq(errors, entete, seqbio),
+SeqQ::SeqQ(const string &entete, const EncodedSequence &seqbio, const string &qualite) :
+        Seq(entete, seqbio),
         qualite(qualite) {
 
 }
 
-SeqQ::SeqQ(const vector <string> errors, const string &entete, const string &seqbio, const string &qualite) :
-        Seq(errors, entete, seqbio),
+SeqQ::SeqQ(const string &entete, const string &seqbio, const string &qualite) :
+        Seq(entete, seqbio),
         qualite(qualite) {
 
 }
