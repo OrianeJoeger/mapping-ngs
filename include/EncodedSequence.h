@@ -7,6 +7,7 @@
 #include <cstdint>
 #include <iostream>
 #include <string>
+#include <vector>
 
 class EncodedSequence {
 private:
