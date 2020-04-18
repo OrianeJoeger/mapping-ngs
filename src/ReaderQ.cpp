@@ -1,6 +1,5 @@
 #include <iostream>
 #include <string>
-#include <vector>
 
 #include "../include/Reader.h"
 #include "../include/ReaderQ.h"
@@ -8,8 +7,8 @@
 
 using namespace std;
 
-ReaderQ::ReaderQ(istream *file_ptr) :
-        Reader(file_ptr) {
+ReaderQ::ReaderQ(istream *is) :
+        Reader(is) {
 
 }
 
@@ -27,8 +26,6 @@ SeqQ *ReaderQ::next() {
             entete = "",
             seq = "",
             qualite = "";
-
-    vector <string> errors;
 
     while (!this->file_ptr->eof()) {
         c = this->file_ptr->get();

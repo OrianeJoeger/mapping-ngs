@@ -1,11 +1,10 @@
-
+#include <cstdint>
 #include <iostream>
-#include <stdexcept>
-#include <cstdlib>
-#include <cassert>
+#include <string>
+#include <vector>
+
 #include "../include/EncodedSequence.h"
 #include "../include/Reader.h"
-
 
 using namespace std;
 

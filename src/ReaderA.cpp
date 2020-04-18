@@ -8,8 +8,8 @@
 
 using namespace std;
 
-ReaderA::ReaderA(istream *file_ptr) :
-        Reader(file_ptr) {
+ReaderA::ReaderA(istream *is) :
+        Reader(is) {
 
 }
 
@@ -25,8 +25,6 @@ SeqA *ReaderA::next() {
     string
             entete = "",
             seq = "";
-
-    vector <string> errors;
 
     while (!this->file_ptr->eof()) {
         c = this->file_ptr->get();

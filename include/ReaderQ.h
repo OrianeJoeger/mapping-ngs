@@ -10,7 +10,7 @@
 class ReaderQ : public Reader {
 public:
 
-    ReaderQ(std::istream *file_ptr);
+    ReaderQ(std::istream *is);
 
     virtual SeqQ *next();
 

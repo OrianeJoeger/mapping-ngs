@@ -1,9 +1,10 @@
 #ifndef __SEQA_H__
 #define __SEQA_H__
 
-#include "Seq.h"
 #include <string>
 
+#include "Seq.h"
+#include "EncodedSequence.h"
 
 class SeqA : public Seq {
 public:

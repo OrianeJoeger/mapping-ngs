@@ -1,5 +1,10 @@
 #include <vector>
 
+#include <fstream>
+#include <iostream>
+#include <string>
+#include <vector>
+
 #include "../include/FastFile.h"
 #include "../include/Reader.h"
 #include "../include/ReaderA.h"

@@ -1,6 +1,5 @@
+#include <cstdint>
 #include <string>
-#include <algorithm>
-#include <list>
 #include <vector>
 
 #include "../include/Seq.h"
@@ -27,7 +26,7 @@ string Seq::getHeader() {
 }
 
 size_t Seq::getSeqbioLength() {
-    return this->seq.toString().length();
+    return this->seq.size();
 }
 
 string Seq::getSeqComp() {

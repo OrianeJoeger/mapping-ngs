@@ -1,9 +1,6 @@
 #ifndef __ENCODEDSEQUENCE_H__
 #define __ENCODEDSEQUENCE_H__
 
-// doxygen peut reconnaître les commentaires /** */ (qui commencent par /** au lieu de /*)
-// pour automatiser la création de documentations
-
 #include <cstdint>
 #include <iostream>
 #include <string>

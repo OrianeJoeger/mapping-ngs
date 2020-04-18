@@ -5,7 +5,7 @@
 
 using namespace std;
 
-Reader::Reader(istream *file_ptr) : file_ptr(file_ptr) {
+Reader::Reader(istream *is) : file_ptr(is) {
 
 }
 
