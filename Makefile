@@ -2,7 +2,6 @@ CC	= g++
 
 RM	= rm -rf
 
-#TODO
 INC = include/
 
 CFLAGS	= -Wall -ansi -pedantic
@@ -31,11 +30,5 @@ re: fclean all
 
 archive: $(HEADERS) $(SOURCES) arch_makefile
 	tar -czf $(PROG).tgz $^
-
-pull:
-	git stash && git pull origin master && git stash pop
-
-push:
-	git push origin master
 
 .PHONY: all re clean fclean archive
