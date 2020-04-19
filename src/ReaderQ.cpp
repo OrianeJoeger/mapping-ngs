@@ -27,47 +27,65 @@ SeqQ *ReaderQ::next() {
             seq = "",
             qualite = "";
 
+    // On parcours le fichier tanqu'on n'est pas arrivé a la fin.
     while (!this->file_ptr->eof()) {
+        // on recupere le prochain caractere du fichier et on avance le curseur
         c = this->file_ptr->get();
 
+        // on verifie que le caractere est visible
         if (c > ' ') {
+            // on attends la qualite (on a donc deja l'entete et la sequence)
             if (need_qualite) {
-                // On attends la qualite.
-                // read & append line
+
+                // On lit la ligne de qualite
                 do {
-                    qualite += c;
+                    qualite.push_back(c);
                 } while (!this->file_ptr->eof() && (c = this->file_ptr->get()) != '\n');
 
                 // on la qualité, on peut stopper le parcours.
                 break;
-            } else if (c == '@') {
-                // Entete de sequence
-                if (has_entete || has_seq) {
+            }
+            // c'est un @ donc on ouvre l'entete
+            else if (c == '@') {
+                // Si on a deja l'entete, on ne doit pas avoir a nouveau un entete
+                // le fichier est donc mal formaté
+                if (has_entete) {
                     throw "Fichier mal formatté";
                 }
-
+                // Sinon
+                // on enregistre que l'on a bien recuperer l'entete
                 has_entete = true;
 
-                // read & append line
+                // On lit la ligne de l'entete
                 do {
-                    entete += c;
+                    entete.push_back(c);
                 } while (!this->file_ptr->eof() && (c = this->file_ptr->get()) != '\n');
-            } else if (c == '+') {
-                // Fin d'entete de sequence
+            }
+            // c'est un + donc on ferme l'entete
+            else if (c == '+') {
+                // Si on a pas l'entete ou pas la sequence, on ne doit pas avoir la fermeture de l'entete
+                // le fichier est donc mal formaté
                 if (!has_entete || !has_seq) {
                     throw "Fichier mal formatté";
                 }
 
+                // Sinon
+                // On a bien l'entete, la sequence, la fermeture de l'entete, on attends donc la qualité
                 need_qualite = true;
 
-                // move to next line
+                // on saute la ligne
                 while (!this->file_ptr->eof() && (c = this->file_ptr->get()) != '\n');
-            } else if (has_entete) {
-                // On a une entete, on charge la sequence.
+            }
+            // Ce n'est pas un "@" ou "+", et on a recupere l'entete
+            // on arrive donc sur la sequence
+            else if (has_entete) {
+
+                // on enregistre que l'on a bien recupere la sequence
                 has_seq = true;
-                // read & append line
+
+                // on lit toute la ligne et on l'ajoute à la sequence
                 do {
-                    seq += c;
+                    seq.push_back(c);
                 } while (!this->file_ptr->eof() && (c = this->file_ptr->get()) != '\n');
             }
             // Sinon, on avait pas d'entete, et on attend pas ce caractere
@@ -80,6 +98,7 @@ SeqQ *ReaderQ::next() {
         }
     }
 
+    // On a la qualite, la sequence, on a forcément l'entete, on  peut retourner l'object de Sequence Q
     if (need_qualite && has_seq) {
         return new SeqQ(entete, seq, qualite);
     }
@@ -90,5 +109,6 @@ SeqQ *ReaderQ::next() {
         throw "Fichier mal formatée";
     }
 
+    // On rien recuperer, on retourne null
     return NULL;
 }
