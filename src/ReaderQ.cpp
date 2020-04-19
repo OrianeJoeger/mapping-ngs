@@ -69,8 +69,13 @@ SeqQ *ReaderQ::next() {
                 do {
                     seq += c;
                 } while (!this->file_ptr->eof() && (c = this->file_ptr->get()) != '\n');
-            } else {
-                throw "Erreur : en-tête mal formatée";
+            }
+            // Sinon, on avait pas d'entete, et on attend pas ce caractere
+            // On affiche une erreur.
+            else {
+                cerr << "Mauvais caratete rencontré : " << c << endl;
+                // La ligne courante est corropu donc on la saute.
+                while (!this->file_ptr->eof() && this->file_ptr->get() != '\n');
             }
         }
     }
@@ -79,7 +84,9 @@ SeqQ *ReaderQ::next() {
         return new SeqQ(entete, seq, qualite);
     }
 
-    if (has_entete || has_seq) {
+    // on a que l'entete, il manque donc la sequence, le fichier est mal formaté
+    // on leve une erreur.
+    if (has_entete) {
         throw "Fichier mal formatée";
     }
 
