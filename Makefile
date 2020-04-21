@@ -28,7 +28,7 @@ fclean: clean
 re: fclean all
 	$(RM) $(OBJS)
 
-archive: $(HEADERS) $(SOURCES) arch_makefile
-	tar -czf $(PROG).tgz $^
+archive: re
+	tar -czf $(NAME).tar.gz $(HEADERS) $(SRCS) $(NAME)
 
 .PHONY: all re clean fclean archive
